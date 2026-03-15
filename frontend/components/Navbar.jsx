@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { SiNike } from "react-icons/si";
 import { useLocation, useNavigate } from "react-router-dom";
+import URL from "../helper";
 
 function Navbar() {
   const { pathname } = useLocation();
@@ -11,7 +12,7 @@ function Navbar() {
   const { data: me } = useQuery({
     queryKey: ["me"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/users/me", {
+      const res = await fetch(`${URL}/users/me`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Not logged in");

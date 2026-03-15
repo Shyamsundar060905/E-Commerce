@@ -11,7 +11,7 @@ function Cart() {
   } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/cart", {
+      const res = await fetch(`${URL}/cart`, {
         credentials: "include",
       });
 
