@@ -16,9 +16,8 @@ function Cart() {
       });
 
       if (res.status === 404) {
-        return { items: [] };
+        return { data: { items: [] } };
       }
-
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.message || "Failed to fetch cart");
@@ -32,11 +31,12 @@ function Cart() {
   if (isLoading) {
     return <div> Loading </div>;
   }
-  const subtotal = cart.data.items.reduce(
+  const items = cart?.data?.items || [];
+
+  const subtotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
-
   const shipping = subtotal >= 2000 ? 0 : 1000;
   const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
   const TAX = Math.round(subtotal * TAX_RATE);
@@ -63,7 +63,7 @@ function Cart() {
               Your Cart
             </div>
             <div className="w-[70%] ml-[10%] mt-[3%] h-[50%] mb-15">
-              {cart.data.items.map((item, index) => (
+              {items.map((item, index) => (
                 <CartBox item={item} key={index} />
               ))}
             </div>
