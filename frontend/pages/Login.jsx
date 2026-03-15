@@ -8,7 +8,10 @@ function Login() {
   return (
     <div className="flex w-screen h-[95%]">
       <div className="w-[60%]">
-        <img src="login_nike.jpg" className="h-screen" />
+        <img
+          src="https://res.cloudinary.com/dl6od3rl2/image/upload/v1773573837/login_nike_krf56o.jpg"
+          className="h-screen"
+        />
       </div>
 
       <div className="w-[40%] flex flex-col justify-around items-center">

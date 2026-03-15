@@ -40,12 +40,12 @@ function Home() {
       <div className="bg-white w-2/5 h-full flex-col items-center justify-center overflow-visible">
         <div className="relative lg:w-116 lg:h-116 2xl:w-160 2xl:h-160">
           <img
-            src="shoe_new_1.png"
+            src="https://res.cloudinary.com/dl6od3rl2/image/upload/v1773573836/shoe_new_1_bym0yh.png"
             className="absolute xl:-top-28 2xl:-top-40 right-34 -top-55 z-30"
           />
 
           <img
-            src="shoe_new_2.png"
+            src="https://res.cloudinary.com/dl6od3rl2/image/upload/v1773573835/shoe_new_2_ezbadr.png"
             className="absolute lg:top-[70%] lg:right-[45%] z-20"
           />
         </div>
