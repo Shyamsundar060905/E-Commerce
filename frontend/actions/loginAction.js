@@ -22,9 +22,7 @@ export async function loginAction({ request }) {
   }
 
   const endpoint =
-    mode === "signup"
-      ? `http://${URL}/users/signup`
-      : `http://${URL}/users/login`;
+    mode === "signup" ? `${URL}/users/signup` : `${URL}/users/login`;
 
   const res = await fetch(endpoint, {
     method: "POST",

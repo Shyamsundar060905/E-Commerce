@@ -19,7 +19,7 @@ function ProductPage() {
   const { data: me } = useQuery({
     queryKey: ["me"],
     queryFn: async () => {
-      const res = await fetch(`http://${URL}/users/me`, {
+      const res = await fetch(`${URL}/users/me`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Not logged in");

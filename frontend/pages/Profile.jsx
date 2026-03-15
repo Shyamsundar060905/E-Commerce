@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Orders from "../components/Orders";
 import Security from "../components/Security";
+import URL from "../helper";
 
 function Profile() {
   const queryClient = useQueryClient();
@@ -28,7 +29,7 @@ function Profile() {
     }
   }
   async function logout() {
-    const res = await fetch("http://localhost:3000/users/logout", {
+    const res = await fetch(`${URL}/users/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -46,7 +47,7 @@ function Profile() {
   } = useQuery({
     queryKey: ["me"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/users/me", {
+      const res = await fetch(`${URL}/users/me`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Not logged in");
