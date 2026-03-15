@@ -12,9 +12,12 @@ const app = express();
 app.use(
   cors({
     origin: function (origin, callback) {
-      const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://e-commerce-two-tau-12.vercel.app/",
+      ];
 
-      // allow same-origin & tools like Postman
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
