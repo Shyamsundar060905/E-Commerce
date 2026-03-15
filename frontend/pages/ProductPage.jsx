@@ -40,7 +40,7 @@ function ProductPage() {
     }
 
     if (!me) {
-      navigate("/login");
+      navigate("/users/login");
       return;
     }
 

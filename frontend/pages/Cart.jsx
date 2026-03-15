@@ -37,6 +37,7 @@ function Cart() {
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
+
   const shipping = subtotal >= 2000 ? 0 : 1000;
   const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
   const TAX = Math.round(subtotal * TAX_RATE);
