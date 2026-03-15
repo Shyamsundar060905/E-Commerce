@@ -15,9 +15,8 @@ app.use(
       const allowedOrigins = [
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://e-commerce-two-tau-12.vercel.app/",
+        "https://e-commerce-two-tau-12.vercel.app",
       ];
-
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
