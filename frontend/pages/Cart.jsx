@@ -3,6 +3,8 @@ import React from "react";
 import { TAX_RATE } from "../helper";
 import { FREE_SHIPPING_THRESHOLD } from "../helper";
 import CartBox from "../components/CartBox";
+import URL from "../helper";
+
 function Cart() {
   const {
     data: cart,

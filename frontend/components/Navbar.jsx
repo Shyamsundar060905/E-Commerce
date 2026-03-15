@@ -24,6 +24,7 @@ function Navbar() {
   function handleProfile() {
     if (!me) {
       navigate("/users/login");
+      return;
     }
 
     navigate("/profile");

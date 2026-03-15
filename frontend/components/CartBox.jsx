@@ -39,7 +39,7 @@ function CartBox({ item }) {
       <div className="grid grid-cols-[1fr_0.5fr_1fr] h-20 items-center w-full gap-4 border-2">
         <div>
           <p className="truncate text-center">{item.product.name}</p>
-          <p className="truncate text-center"> Size:  {item.size}</p>
+          <p className="truncate text-center"> Size: {item.size}</p>
         </div>
         <p className="text-right tabular-nums">₹{item.product.price}</p>
 
