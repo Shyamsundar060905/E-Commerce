@@ -57,7 +57,7 @@ function Profile() {
   });
 
   if (isLoading) return <p>Loading...</p>;
-  if (isError) return navigate("/users/login");
+  if (isError) return navigate("/login");
 
   return (
     <div className="w-full flex h-full justify-start">

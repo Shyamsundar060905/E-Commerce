@@ -67,7 +67,7 @@ export const login = catchAsync(async (req, res, next) => {
   const token = signToken(user._id);
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: false, // localhost = false
+    secure: false,
     sameSite: "lax", // ✅ NOT "none"
     maxAge: 24 * 60 * 60 * 1000,
   });
