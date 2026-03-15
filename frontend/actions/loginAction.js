@@ -1,10 +1,11 @@
 import { redirect } from "react-router-dom";
 import { queryClient } from "../src/main.jsx";
+import URL from "../helper.js";
 
 export async function loginAction({ request }) {
   const formData = await request.formData();
   const mode = formData.get("mode"); // "login" | "signup"
-  
+
   console.log(mode);
   let data;
   if (mode === "login") {
@@ -22,8 +23,8 @@ export async function loginAction({ request }) {
 
   const endpoint =
     mode === "signup"
-      ? "http://localhost:3000/users/signup"
-      : "http://localhost:3000/users/login";
+      ? `http://${URL}/users/signup`
+      : `http://${URL}/users/login`;
 
   const res = await fetch(endpoint, {
     method: "POST",

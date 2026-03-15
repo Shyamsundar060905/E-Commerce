@@ -11,21 +11,15 @@ import cookieParser from "cookie-parser";
 const app = express();
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://e-commerce-two-tau-12.vercel.app",
-      ];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://e-commerce-two-tau-12.vercel.app",
+    ],
     credentials: true,
   }),
 );
+
 app.use(cookieParser());
 app.use(express.json());
 

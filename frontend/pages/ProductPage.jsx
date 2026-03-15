@@ -4,6 +4,7 @@ import { getIndividualProduct } from "../services/product";
 import React, { useState } from "react";
 import { CgShoppingCart } from "react-icons/cg";
 import { useAddToCart } from "../hooks/useCart";
+import URL from "../helper";
 
 function ProductPage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function ProductPage() {
   const { data: me } = useQuery({
     queryKey: ["me"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/users/me", {
+      const res = await fetch(`http://${URL}/users/me`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Not logged in");
