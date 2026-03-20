@@ -21,6 +21,12 @@ export const signup = catchAsync(async (req, res, next) => {
   }
   const newUser = await User.create({ name, email, password });
   const token = signToken(newUser._id);
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
   res.status(200).json({
     token,
     success: true,
@@ -71,6 +77,7 @@ export const login = catchAsync(async (req, res, next) => {
     sameSite: "none", // ✅ REQUIRED for cross-site
     maxAge: 24 * 60 * 60 * 1000,
   });
+
   res.status(200).json({
     status: "success",
     data: {
