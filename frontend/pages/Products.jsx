@@ -3,6 +3,7 @@ import Cards from "../components/Cards";
 import Sidebar from "../components/Sidebar";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import LoadingScreen from "../components/LoadingScreen";
 
 function Products() {
   const { data, isLoading, error } = useQuery({
@@ -10,7 +11,7 @@ function Products() {
     queryFn: getProduct,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingScreen message="Loading products..." />;
   if (error) return <p>Error</p>;
   return (
     <div className="flex overflow-y-hidden w-full justify-center">

@@ -5,6 +5,7 @@ import { FREE_SHIPPING_THRESHOLD } from "../helper";
 import CartBox from "../components/CartBox";
 import URL from "../helper";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../components/LoadingScreen";
 
 function Cart() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function Cart() {
   });
 
   if (isLoading) {
-    return <div> Loading </div>;
+    return <LoadingScreen message="Loading your cart..." />;
   }
 
   if (isError) {

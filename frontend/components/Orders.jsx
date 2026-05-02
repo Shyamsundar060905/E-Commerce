@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import URL from "../helper";
+import LoadingScreen from "./LoadingScreen";
 
 function Orders() {
   const {
@@ -26,7 +27,7 @@ function Orders() {
   });
 
   if (isLoading) {
-    return <p className="text-gray-500">Loading your orders...</p>;
+    return <LoadingScreen message="Loading your orders..." />;
   }
 
   if (isError) {

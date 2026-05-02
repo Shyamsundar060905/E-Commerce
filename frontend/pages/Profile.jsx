@@ -10,6 +10,7 @@ import Orders from "../components/Orders";
 import Security from "../components/Security";
 import Addresses from "../components/Addresses";
 import SavedItems from "../components/SavedItems";
+import LoadingScreen from "../components/LoadingScreen";
 import URL from "../helper";
 
 const profileTabs = [
@@ -73,11 +74,7 @@ function Profile() {
   });
 
   if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-gray-500">Loading your account...</p>
-      </div>
-    );
+    return <LoadingScreen message="Loading your account..." />;
   }
 
   if (isError) {

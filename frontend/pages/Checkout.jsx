@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import URL, { FREE_SHIPPING_THRESHOLD, TAX_RATE } from "../helper";
+import LoadingScreen from "../components/LoadingScreen";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ function Checkout() {
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : 1000;
+  const shipping =
+    subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : 1000;
   const tax = Math.round(subtotal * TAX_RATE);
   const total = subtotal + shipping + tax;
 
@@ -103,11 +105,7 @@ function Checkout() {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-gray-500">Loading checkout...</p>
-      </div>
-    );
+    return <LoadingScreen message="Preparing checkout..." />;
   }
 
   if (isError) {

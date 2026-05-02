@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { CgShoppingCart } from "react-icons/cg";
 import { useAddToCart } from "../hooks/useCart";
 import URL from "../helper";
+import LoadingScreen from "../components/LoadingScreen";
 
 function ProductPage() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function ProductPage() {
     });
   };
 
-  if (isLoading) return <p>Loading product...</p>;
+  if (isLoading) return <LoadingScreen message="Loading product..." />;
   if (isError) return <p>Error loading product</p>;
 
   return (
