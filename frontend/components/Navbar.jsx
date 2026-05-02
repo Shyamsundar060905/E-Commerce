@@ -23,7 +23,7 @@ function Navbar() {
 
   function handleProfile() {
     if (!me) {
-      navigate("/users/login");
+      navigate("/login");
       return;
     }
 

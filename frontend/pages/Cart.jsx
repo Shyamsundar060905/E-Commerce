@@ -4,8 +4,10 @@ import { TAX_RATE } from "../helper";
 import { FREE_SHIPPING_THRESHOLD } from "../helper";
 import CartBox from "../components/CartBox";
 import URL from "../helper";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const {
     data: cart,
     isError,
@@ -33,6 +35,21 @@ function Cart() {
   if (isLoading) {
     return <div> Loading </div>;
   }
+
+  if (isError) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-4">
+        <p className="text-xl font-semibold">Please log in to view your cart.</p>
+        <button
+          onClick={() => navigate("/login")}
+          className="rounded-full bg-black px-6 py-3 text-white"
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
+
   const items = cart?.data?.items || [];
 
   const subtotal = items.reduce(
@@ -109,7 +126,11 @@ function Cart() {
 
         <div className="font-bold flex justify-start items-center h-40 flex-col gap-5 mt-10 ml-10">
           <div className="h-10 w-[50%]">
-            <button className="bg-orange-500 w-[80%] h-10 uppercase rounded-lg">
+            <button
+              onClick={() => navigate("/checkout")}
+              disabled={items.length === 0}
+              className="bg-orange-500 w-[80%] h-10 uppercase rounded-lg disabled:cursor-not-allowed disabled:bg-gray-500"
+            >
               checkout
             </button>
           </div>

@@ -8,7 +8,16 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Orders from "../components/Orders";
 import Security from "../components/Security";
+import Addresses from "../components/Addresses";
+import SavedItems from "../components/SavedItems";
 import URL from "../helper";
+
+const profileTabs = [
+  { name: "Orders", label: "My Orders", icon: FaTruck },
+  { name: "Addresses", label: "Your Addresses", icon: IoLocation },
+  { name: "Security", label: "Login & Security", icon: FaLock },
+  { name: "Saved", label: "Saved Items", icon: FaHeart },
+];
 
 function Profile() {
   const queryClient = useQueryClient();
@@ -25,9 +34,16 @@ function Profile() {
       case "Orders":
         return <Orders />;
       case "Security":
-        return <Security />;
+        return <Security user={me.user} />;
+      case "Addresses":
+        return <Addresses user={me.user} />;
+      case "Saved":
+        return <SavedItems />;
+      default:
+        return <Orders />;
     }
   }
+
   async function logout() {
     const res = await fetch(`${URL}/users/logout`, {
       method: "POST",
@@ -56,55 +72,68 @@ function Profile() {
     retry: false,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return navigate("/login");
+  if (isLoading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="text-gray-500">Loading your account...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    navigate("/login");
+    return null;
+  }
 
   return (
-    <div className="w-full flex h-full justify-start">
-      <div className="flex flex-col gap-10 w-[30%]">
-        <div className="flex items-center flex-col">
-          <h1 className="text-4xl font-bold">Your Account</h1>
-          <div className="flex gap-1">
-            <p className="text-gray-600">Name: {me.user.name}</p>
-            <p>,</p>
-            <p className="text-gray-600">Email: {me.user.email}</p>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-10 items-center w-[90%]">
-          <div className="border-2 w-[70%] h-12 flex items-center justify-start gap-5 px-4">
-            <FaTruck size={20} />
-            <button onClick={() => handleClick("Orders")}> My Orders </button>
-          </div>
-          <div className="border-2 w-[70%] h-12 flex items-center justify-start gap-5 px-4">
-            <IoLocation size={20} />
-            <button> Your Addresses </button>
+    <div className="h-full w-full overflow-y-auto bg-gray-50 px-8 py-8">
+      <div className="mx-auto flex max-w-6xl gap-8">
+        <div className="w-[32%] min-w-72">
+          <div className="rounded-3xl bg-white p-8 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-400">
+              Your Account
+            </p>
+            <h1 className="mt-2 text-4xl font-bold">{me.user.name}</h1>
+            <p className="mt-2 break-all text-gray-600">{me.user.email}</p>
           </div>
 
-          <div className="border-2 w-[70%] h-12 flex items-center justify-start gap-5 px-4">
-            <FaLock size={20} />
-            <button onClick={() => handleClick("Security")}>
-              {" "}
-              Login & Security{" "}
+          <div className="mt-6 flex flex-col gap-3 rounded-3xl bg-white p-4 shadow-sm">
+            {profileTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isSelected = selectedButton === tab.name;
+
+              return (
+                <button
+                  key={tab.name}
+                  onClick={() => handleClick(tab.name)}
+                  className={`flex h-14 items-center gap-4 rounded-2xl px-4 text-left transition ${
+                    isSelected
+                      ? "bg-black text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <Icon size={20} />
+                  <span className="font-medium">{tab.label}</span>
+                </button>
+              );
+            })}
+
+            <hr className="my-2 border-gray-200" />
+
+            <button
+              onClick={logout}
+              className="flex h-14 items-center gap-4 rounded-2xl px-4 text-left text-red-600 transition hover:bg-red-50"
+            >
+              <IoLogOut size={20} />
+              <span className="font-medium">Log out</span>
             </button>
           </div>
-          <div className="border-2 w-[70%] h-12 flex items-center justify-start gap-5 px-4">
-            <FaHeart size={20} />
-            <button onClick={() => handleClick("Saved")}> Saved Items </button>
-          </div>
-          <hr className="w-3/5" />
+        </div>
 
-          <div
-            onClick={logout}
-            className="border-2 w-[70%] h-12 flex items-center justify-start gap-5 px-4 cursor-pointer hover:bg-gray-100"
-          >
-            <IoLogOut size={20} />
-            <button onClick={() => handleClick("Logout")}>Log out</button>
-          </div>
+        <div className="min-w-0 flex-1 rounded-3xl bg-white p-8 shadow-sm">
+          {getComponent(selectedButton)}
         </div>
       </div>
-
-      <div>{getComponent(selectedButton)}</div>
     </div>
   );
 }
